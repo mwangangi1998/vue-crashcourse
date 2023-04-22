@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Vue </title>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/ ">MyVueApp</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li v-for="link in links"><a :href="link.url">{{ link.text }}</a></li>
+           
+          </ul>
+        </div>
+      </nav>
+    <div class="container">
+        <div id="content">
+            <h1>{{ message }}</h1>
+            <p>{{ content }}</p>
+
+
+            </div>
+            
+    </div>
+
+    <script>
+        const { createApp } = Vue
+
+        createApp({
+            data() {
+                return {
+                  
+                   links: [
+                   {text: 'Home', url:'home.html'},
+                   {text: 'About', url:'about.html'},
+                   {text: 'contact', url:'home.html'}
+                   ]
+                  
+                }
+            }
+        }).mount('nav')
+        createApp({
+            data() {
+                return {
+                    message: 'Hello Vue!',
+                    content: 'this is my first vue app'
+                }
+            }
+        }).mount('#content')
+    </script>
+</body>
+
+</html>
