@@ -14,21 +14,30 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse "
+   >
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="/ ">MyVueApp</a>
+            <a class="navbar-brand" :href=" ">MyVueApp</a>
           </div>
           <ul class="nav navbar-nav">
-            <li v-for="link in links"><a :href="link.url">{{ link.text }}</a></li>
+            <li v-for="(page , index) in pages" class="nav-item" 
+            class="{active activePage==index}"
+            :key="index">
+                <a 
+                :href="page.link.url"
+                :title="`This link goes to ${page.link.text  }`"
+                @click.prevent="activePage=index"
+                >{{ page.link.text }}</a></li>
            
           </ul>
+          
         </div>
       </nav>
     <div class="container">
         <div id="content">
-            <h1>{{ message }}</h1>
-            <p>{{ content }}</p>
+            <h1 >{{ pages[activePage].pageTitle }}</h1>
+            <p>{{ pages[activePage].content }}</p>
 
 
             </div>
@@ -38,27 +47,36 @@
     <script>
         const { createApp } = Vue
 
+    
         createApp({
             data() {
                 return {
-                  
-                   links: [
-                   {text: 'Home', url:'home.html'},
-                   {text: 'About', url:'about.html'},
-                   {text: 'contact', url:'home.html'}
-                   ]
-                  
-                }
-            }
-        }).mount('nav')
-        createApp({
-            data() {
-                return {
+                    usenavbarDark:true,
+                    activePage:0,
+            pages:[
+                        
+                
+            {
+                link: { text: 'index',url: 'index.html'},
+                pageTitle: 'home page',
+                content :'this is home page',
+            },
+            {
+                link: { text: 'about',url: 'about.html'},
+                pageTitle: 'About us',
+                content :'this is about page',
+            },
+            {
+                link: { text: 'contact',url: 'contatc.html'},
+                pageTitle: 'contact page',
+                content :'this is contact page',
+            },
+            ],
                     message: 'Hello Vue!',
                     content: 'this is my first vue app'
                 }
             }
-        }).mount('#content')
+        }).mount('body')
     </script>
 </body>
 
