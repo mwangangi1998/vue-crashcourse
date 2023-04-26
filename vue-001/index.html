@@ -14,69 +14,54 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse "
-   >
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" :href=" ">MyVueApp</a>
-          </div>
-          <ul class="nav navbar-nav">
-            <li v-for="(page , index) in pages" class="nav-item" 
-            class="{active activePage==index}"
-            :key="index">
-                <a 
-                :href="page.link.url"
-                :title="`This link goes to ${page.link.text  }`"
-                @click.prevent="activePage=index"
-                >{{ page.link.text }}</a></li>
-           
-          </ul>
-          
-        </div>
-      </nav>
+  <div>
+    <nav-bar
+    :pages="pages" 
+    :activePage="activePage" 
+    :nav-Link-Click="(index)=>activePage=index"></nav-bar>
+  </div>
     <div class="container">
-        <page-viewer 
-        :page="pages[activePage]">
+        <page-viewer :page="pages[activePage]">
 
         </page-viewer>
-            
+
     </div>
 
     <script>
 
 
-         let app= Vue.createApp({
+        let app = Vue.createApp({
             data() {
                 return {
-                 activePage:0,
-            pages:[
-                        
-                
-            {
-                link: { text: 'index',url: 'index.html'},
-                pageTitle: 'home page',
-                content :'this is home page',
-            },
-            {
-                link: { text: 'about',url: 'about.html'},
-                pageTitle: 'About us',
-                content :'this is about page',
-            },
-            {
-                link: { text: 'contact',url: 'contatc.html'},
-                pageTitle: 'contact page',
-                content :'this is contact page',
-            },
-            ],
+                    activePage: 0,
+                    pages: [
+
+
+                        {
+                            link: { text: 'index', url: 'index.html' },
+                            pageTitle: 'home page',
+                            content: 'this is home page',
+                        },
+                        {
+                            link: { text: 'about', url: 'about.html' },
+                            pageTitle: 'About us',
+                            content: 'this is about page',
+                        },
+                        {
+                            link: { text: 'contact', url: 'contatc.html' },
+                            pageTitle: 'contact page',
+                            content: 'this is contact page',
+                        },
+                    ],
                     message: 'Hello Vue!',
                     content: 'this is my first vue app'
                 }
             }
         })
         app.component('page-viewer',
-        {
-            props:['page'],
-                   template: `
+            {
+                props: ['page'],
+                template: `
            <div>
                <h1>{{ page.pageTitle }}</h1>
                <p>{{ page.content }}</p>
@@ -84,10 +69,37 @@
        
                </div>
            `}
-               
-               ),
+        );
+        app.component('nav-bar',
+            {
+                props: ['pages', 'activePage', 'navLinkClick'],
+                template: `
+                
+                <nav class="navbar navbar-inverse "
+                >
+                     <div class="container-fluid">
+                       <div class="navbar-header">
+                         <a class="navbar-brand" :href=" ">MyVueApp</a>
+                       </div>
+                       <ul class="nav navbar-nav">
+                         <li v-for="(page , index) in pages" class="nav-item" 
+                         
+                         :key="index">
+                             <a 
+                             :class="{active: activePage==index}"
+                             :href="page.link.url"
+                             :title="\`This link goes to \${page.link.text  }\`"
+                             @click.prevent="navLinkClick(index)"
+                             >{{ page.link.text }}</a></li>
+                        
+                       </ul>
+                       
+                     </div>
+                   </nav> `,
+            }
+        );
         app.mount('body');
-      
+
     </script>
 </body>
 
